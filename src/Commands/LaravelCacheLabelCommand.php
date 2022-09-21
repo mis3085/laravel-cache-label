@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Mis3085\LaravelCacheLabel\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelCacheLabelCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-cache-label';
 
     public $description = 'My command';
 

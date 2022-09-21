@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Database\Factories;
+namespace Mis3085\LaravelCacheLabel\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
