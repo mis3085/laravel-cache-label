@@ -2,9 +2,10 @@
 
 namespace Mis3085\LaravelCacheLabel;
 
+use Illuminate\Cache\Repository;
+use Illuminate\Support\Facades\Event;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Mis3085\LaravelCacheLabel\Commands\LaravelCacheLabelCommand;
 
 class LaravelCacheLabelServiceProvider extends PackageServiceProvider
 {
@@ -17,9 +18,28 @@ class LaravelCacheLabelServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-cache-label')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-cache-label_table')
-            ->hasCommand(LaravelCacheLabelCommand::class);
+            ->hasConfigFile();
+    }
+
+    public function bootingPackage()
+    {
+        Event::subscribe(CacheEventSubscriber::class);
+    }
+
+    public function packageBooted()
+    {
+        Repository::macro('labels', function ($labels) {
+            /** @var \Illuminate\Cache\Repository $this */
+            $repositoryClass = config('cache-label.repository');
+            $cache = new $repositoryClass(
+                $this->getStore(),
+                new LabelSet($this->getStore(), (array) $labels)
+            );
+            /** @phpstan-ignore-next-line */
+            if (! is_null($this->getEventDispatcher())) {
+                $cache->setEventDispatcher($this->getEventDispatcher());
+            }
+            return $cache;
+        });
     }
 }
