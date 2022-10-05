@@ -1,10 +1,11 @@
 {
     "name": "mis3085/laravel-cache-label",
-    "description": "This is my package laravel-cache-label",
+    "description": "An alternative method of categorizing cached items in Laravel",
     "keywords": [
         "mis3085",
         "laravel",
-        "laravel-cache-label"
+        "cache",
+        "cache-tags"
     ],
     "homepage": "https://github.com/mis3085/laravel-cache-label",
     "license": "MIT",
@@ -33,8 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mis3085\\LaravelCacheLabel\\": "src",
-            "Mis3085\\LaravelCacheLabel\\Database\\Factories\\": "database/factories"
+            "Mis3085\\LaravelCacheLabel\\": "src"
         }
     },
     "autoload-dev": {
@@ -49,16 +49,17 @@
         "format": "vendor/bin/pint"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {
             "providers": [
                 "Mis3085\\LaravelCacheLabel\\LaravelCacheLabelServiceProvider"
-            ],
-            "aliases": {
-                "LaravelCacheLabel": "Mis3085\\LaravelCacheLabel\\Facades\\LaravelCacheLabel"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
