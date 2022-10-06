@@ -5,7 +5,10 @@ namespace Mis3085\LaravelCacheLabel;
 use Illuminate\Cache\Repository;
 use Illuminate\Contracts\Cache\Store;
 
-class CacheLabelRepository extends Repository
+/**
+ * Repository for Laravel 9, to compatible with the strict return type of get().
+ */
+class CacheLabelRepositoryV9 extends Repository
 {
     use CacheLabelTrait;
 
@@ -35,7 +38,7 @@ class CacheLabelRepository extends Repository
      *
      * The $key has to exist in all of the labels, or the default value would been returned.
      */
-    public function get($key, $default = null)
+    public function get($key, $default = null): mixed
     {
         $value = parent::get($key, $default);
 
